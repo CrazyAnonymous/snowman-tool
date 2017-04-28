@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.snowman.tools</groupId>
+	<artifactId>snowman-tools</artifactId>
+	<version>1.0</version>
+	<name>snowman-tools</name>
+	<packaging>jar</packaging>
+	<description>snowman-tools</description>
+  
+  	<properties>
+		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.2.5.RELEASE</version>
+		</dependency>
+	</dependencies>
+	
+	  <build>
+
+    <plugins>
+
+      <!-- Copying Allatori configuration file to 'target' directory.
+           The destination file will be filtered (Maven properties used in configuration file will be resolved). -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-and-filter-allatori-config</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+            <source>${java.version}</source>
+               <target>${java.version}</target>
+               <encoding>${project.build.sourceEncoding}</encoding>
+              <outputDirectory>${basedir}/target</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/allatori</directory>
+                  <includes>
+                    <include>allatori.xml</include>
+                  </includes>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Running Allatori -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>run-allatori</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Xms128m</argument>
+            <argument>-Xmx512m</argument>
+            <argument>-jar</argument>
+
+            <!-- Copy allatori.jar to 'allatori' directory to use the commented line -->
+            <argument>${basedir}/allatori/allatori.jar</argument>
+            <!-- <argument>${basedir}/allatori/allatori.jar</argument> -->
+
+            <argument>${basedir}/target/allatori.xml</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+</project>
