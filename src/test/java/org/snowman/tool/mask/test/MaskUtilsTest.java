@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.junit.Test;
+import org.snowman.tool.encryption.AESEncryptor;
 
 import junit.framework.TestCase;
 
@@ -13,7 +14,7 @@ public class MaskUtilsTest extends TestCase {
 	@Test
 	public void testMaskBean() {
 		MaskBean maskBean = new MaskBean();
-		maskBean.setName("Jack");
+		maskBean.setName("Andrew");
 		maskBean.setMobile("12318638123");
 		maskBean.setIdcard("123212196309222123");
 		maskBean.setCardNumber("1238390056241234");
@@ -21,7 +22,9 @@ public class MaskUtilsTest extends TestCase {
 		maskBean.setBirthday(new Date());
 		maskBean.setAge(17);
 		
-		System.out.printf("after mask: %s\r\n", maskBean);
+		AESEncryptor.encryptObject(maskBean);
+		
+		System.out.printf("after mask and encrypt: %s\r\n", maskBean);
 	}
 
 	//@Test
