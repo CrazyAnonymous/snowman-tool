@@ -1,79 +1,94 @@
-package org.snowman.tool.test;
+package org.snowman.tool.encrypt.test;
 
 import java.util.Date;
 
-import org.snowman.tool.mask.Mask;
-import org.snowman.tool.mask.MaskType;
-import org.snowman.tool.mask.MaskUtils;
+import org.snowman.tool.encryption.Encryption;
+import org.snowman.tool.encryption.EncryptionType;
 
-class MaskBean {
-	
+/**
+ * 
+ * @author Andrew-PC
+ * @since 2017年4月29日 上午10:10:26
+ */
+public class EncryptBean {
+
 	private String name;
 	
-
-	@Mask(type=MaskType.MOBILE, format="#")
+	@Encryption(type=EncryptionType.AES)
 	private String mobile;
 
-	@Mask(type=MaskType.IDCARD)
+	@Encryption
 	private String idcard;
-	
 
-	@Mask(type=MaskType.BANKCARD)
+	@Encryption(type=EncryptionType.AES)
 	private String cardNumber;
 
-	@Mask(type=MaskType.ADDRESS)
+	@Encryption
 	private String address;
 	
 	private Date birthday;
 	
 	private Integer age;
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getIdcard() {
-		return idcard;
-	}
-	public void setIdcard(String idcard) {
-		this.idcard = idcard;
-	}
-	public String getCardNumber() {
-		return cardNumber;
-	}
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+
 	public String getMobile() {
 		return mobile;
 	}
+
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+
+	public String getIdcard() {
+		return idcard;
+	}
+
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
+	}
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
 	@Override
 	public String toString() {
-		return MaskUtils.toString(this);
+		return "EncryptBean [name=" + name + ", mobile=" + mobile + ", idcard=" + idcard + ", cardNumber=" + cardNumber
+				+ ", address=" + address + ", birthday=" + birthday + ", age=" + age + "]";
 	}
 }
-

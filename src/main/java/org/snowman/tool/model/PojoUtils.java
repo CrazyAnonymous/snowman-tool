@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.snowman.tool.encrypt.AESEncryptor;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -253,13 +252,14 @@ public class PojoUtils {
 	 */
 	public static void invoke(Object source, Object target, List<PropertyDescriptor> propDescList) {
 		if(null==source || null==target || null==propDescList){
-			throw new IllegalArgumentException("输入参数不能为null");
+			throw new IllegalArgumentException("null parameter");
 		}
 		
 		for(PropertyDescriptor propDesc : propDescList){
 			String fieldName = propDesc.getName();
 			Object fieldValue = null;
 			try {
+				propDesc.getReadMethod().setAccessible(true);
 				fieldValue = propDesc.getReadMethod().invoke(source, new Object());
 				PropertyDescriptor targetPropDesc = BeanUtils.getPropertyDescriptor(target.getClass(), fieldName);
 				/*if(null==targetPropDesc){
@@ -302,6 +302,7 @@ public class PojoUtils {
 			Method readMethod = propDesc.getReadMethod();
 			//Method writeMethod = propDesc.getWriteMethod();
 			try {
+				readMethod.setAccessible(true);
 				Object filedValue = readMethod.invoke(obj, new Object());
 				if(null!=filedValue){
 					propDescList.add(propDesc);
@@ -318,84 +319,4 @@ public class PojoUtils {
 		return propDescList;
 	}
 
-	/**
-	 * <p>加密对象属性</p>
-	 * @param obj
-	 * @param properties
-	 */
-	public static void encryptProperties(Object obj, Class<?> class_, String[] properties) {
-		for(String prop : properties) {
-			
-			PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(class_, prop);
-			
-			String plainProp = null;
-			try {
-				plainProp = (String) pd.getReadMethod().invoke(obj, null);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-			
-			if(null == plainProp || "".equals(plainProp)) {
-				continue;
-			}
-			
-			String cipherText = AESEncryptor.encrypt(plainProp);
-			
-			try {
-				pd.getWriteMethod().invoke(obj, cipherText);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
-	/**
-	 * <p>解密对象属性</p>
-	 * @param obj
-	 * @param class_
-	 * @param properties
-	 */
-	public static void decryptProperties(Object obj, Class<?> class_, String[] properties) {
-		for(String prop : properties) {
-			
-			PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(class_, prop);
-			
-			String cipherProp = null;
-			try {
-				cipherProp = (String) pd.getReadMethod().invoke(obj, null);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-			
-			if(null == cipherProp || "".equals(cipherProp)) {
-				continue;
-			}
-			
-			String plainProp = AESEncryptor.decrypt(cipherProp);
-			
-			try {
-				pd.getWriteMethod().invoke(obj, plainProp);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
 }

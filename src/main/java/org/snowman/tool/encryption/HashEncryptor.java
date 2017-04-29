@@ -1,11 +1,12 @@
-package org.snowman.tool.encrypt;
+package org.snowman.tool.encryption;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
  
 /**
  * <dl>
- *    <dt><b>Title:</b></dt>
+ *    <dt><b>Title: Hash encryptor</b></dt>
  *    <dd>
  *    	none
  *    </dd>
@@ -21,6 +22,8 @@ import java.security.NoSuchAlgorithmException;
  *
  */
 public class HashEncryptor{
+	
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HashEncryptor.class);
  
     public static String MD2 = "MD2";
     public static String MD5 = "MD5";
@@ -30,30 +33,30 @@ public class HashEncryptor{
     public static String SHA512 = "SHA-512";
  
     /**
-     * @param str
-     *            加密明文
+     * @param plainText
      * @param algorithm
-     *            加密算法
-     * @return 加密结果字符串
+     * @return cipher text
      */
-    public static String encrypt(String str, String algorithm) {
+    public static String encrypt(String plainText, String algorithm) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
             messageDigest.reset();
-            messageDigest.update(str.getBytes());
+            messageDigest.update(plainText.getBytes("UTF-8"));
             byte[] res = messageDigest.digest();
             return byte2hex(res);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return str;
-        }
+        	logger.error("encrypt error", e);
+        } catch (UnsupportedEncodingException e) {
+        	logger.error("encrypt error", e);
+		}
+        
+        return plainText;
     }
  
     /**
-     * 将byte数组转换为16进制表示
-     * 
+     * convert byte to hex
      * @param byteArray
-     * @return
+     * @return hex string
      */
     private static String byte2hex(byte[] byteArray) {
         StringBuffer md5StrBuff = new StringBuffer();

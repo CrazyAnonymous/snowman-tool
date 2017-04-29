@@ -1,4 +1,4 @@
-package org.snowman.tool.test;
+package org.snowman.tool.mask.test;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -21,7 +21,7 @@ public class MaskUtilsTest extends TestCase {
 		maskBean.setBirthday(new Date());
 		maskBean.setAge(17);
 		
-		System.out.println(maskBean);
+		System.out.printf("after mask: %s\r\n", maskBean);
 	}
 
 	//@Test
