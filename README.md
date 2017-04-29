@@ -72,4 +72,6 @@ public class MaskUtilsTest extends TestCase {
 ```
 
 ##### 4.output: 
+```
 after mask and encrypt: MaskBean[name=Andrew, mobile=123####8123, idcard=1232121963****2123, cardNumber=jzvCqL2QEMQliI2Pvdx7Chi7uEURzsK8I7iejfobS7Q=, address=2915 Canyon Lake Dr, Rapid City, ****7702, birthday=Sat Apr 29 11:36:35 CST 2017, age=17
+```
