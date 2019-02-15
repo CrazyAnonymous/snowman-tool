@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.BeanUtils;
+import io.github.snowthinker.reflect.ReflectionHelper;
 
 /**
  * <dl>
@@ -33,7 +33,7 @@ import org.springframework.beans.BeanUtils;
  * 
  */
 @SuppressWarnings(value={"unchecked", "rawtypes"})
-public class PojoUtils {
+public class PojoHelper {
 
 	/**
 	 * 将POJO转换为DTO
@@ -50,7 +50,8 @@ public class PojoUtils {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		BeanUtils.copyProperties(obj, dto, class_);
+		
+		ReflectionHelper.copyProperties(obj, dto, class_);
 		return dto;
 	}
 	
@@ -152,8 +153,8 @@ public class PojoUtils {
 		
 		List<PropertyDescriptor> propDescList = new ArrayList<PropertyDescriptor>();
 		
-		PropertyDescriptor[] oriPropsDescriptors = BeanUtils.getPropertyDescriptors(original.getClass());
-		PropertyDescriptor[] prePropsDescriptors = BeanUtils.getPropertyDescriptors(present.getClass());
+		PropertyDescriptor[] oriPropsDescriptors = ReflectionHelper.getPropertyDescriptors(original.getClass());
+		PropertyDescriptor[] prePropsDescriptors = ReflectionHelper.getPropertyDescriptors(present.getClass());
 		
 		for(PropertyDescriptor oriPropDescriptor : oriPropsDescriptors){
 			for(PropertyDescriptor prePropsDescriptor : prePropsDescriptors){
@@ -263,7 +264,7 @@ public class PojoUtils {
 			try {
 				propDesc.getReadMethod().setAccessible(true);
 				fieldValue = propDesc.getReadMethod().invoke(source, new Object());
-				PropertyDescriptor targetPropDesc = BeanUtils.getPropertyDescriptor(target.getClass(), fieldName);
+				PropertyDescriptor targetPropDesc = getPropertyDescriptor(target.getClass(), fieldName);
 				/*if(null==targetPropDesc){
 					throw new BizException("目标对象不存在输入对象的方法");
 				}*/
@@ -283,6 +284,12 @@ public class PojoUtils {
 	}
 
 
+	private static PropertyDescriptor getPropertyDescriptor(Class<? extends Object> class1, String fieldName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	/**
 	 * <p>获取非NULL字段的PropertyDescriptor</p>
 	 * @param obj target object
@@ -295,7 +302,7 @@ public class PojoUtils {
 		
 		List<PropertyDescriptor> propDescList = new ArrayList<PropertyDescriptor>();
 		
-		PropertyDescriptor[] propDescs = BeanUtils.getPropertyDescriptors(obj.getClass());
+		PropertyDescriptor[] propDescs = ReflectionHelper.getPropertyDescriptors(obj.getClass());
 		for(PropertyDescriptor propDesc : propDescs){
 			String name = propDesc.getName();
 			if(null!=name && name.equals("class")){

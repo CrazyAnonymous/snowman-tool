@@ -4,7 +4,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import org.springframework.beans.BeanUtils;
+import io.github.snowthinker.reflect.ReflectionHelper;
 
 /**
  * mask utils
@@ -37,7 +37,7 @@ public class MaskUtils {
 				continue;
 			}
 			
-			PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(obj.getClass(), fieldName);
+			PropertyDescriptor propertyDescriptor = ReflectionHelper.getPropertyDescriptor(obj.getClass(), fieldName);
 			Object readValue = null;
 			try {
 				propertyDescriptor.getReadMethod().setAccessible(true);
