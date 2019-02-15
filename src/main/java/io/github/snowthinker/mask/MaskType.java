@@ -1,4 +1,4 @@
-package org.snowman.tool.mask;
+package io.github.snowthinker.mask;
 
 /**
  * mask type

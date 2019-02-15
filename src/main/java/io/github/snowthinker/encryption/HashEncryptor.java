@@ -1,4 +1,4 @@
-package org.snowman.tool.encryption;
+package io.github.snowthinker.encryption;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -33,9 +33,9 @@ public class HashEncryptor{
     public static String SHA512 = "SHA-512";
  
     /**
-     * @param plainText
-     * @param algorithm
-     * @return cipher text
+     * @param plainText plain text
+     * @param algorithm algorithm
+     * @return String
      */
     public static String encrypt(String plainText, String algorithm) {
         try {

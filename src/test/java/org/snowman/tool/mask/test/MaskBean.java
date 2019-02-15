@@ -2,11 +2,11 @@ package org.snowman.tool.mask.test;
 
 import java.util.Date;
 
-import org.snowman.tool.encryption.Encryption;
-import org.snowman.tool.encryption.EncryptionType;
-import org.snowman.tool.mask.Mask;
-import org.snowman.tool.mask.MaskType;
-import org.snowman.tool.mask.MaskUtils;
+import io.github.snowthinker.encryption.Encryption;
+import io.github.snowthinker.encryption.EncryptionType;
+import io.github.snowthinker.mask.Mask;
+import io.github.snowthinker.mask.MaskType;
+import io.github.snowthinker.mask.MaskUtils;
 
 class MaskBean {
 	

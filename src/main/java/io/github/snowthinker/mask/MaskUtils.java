@@ -1,4 +1,4 @@
-package org.snowman.tool.mask;
+package io.github.snowthinker.mask;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
@@ -17,8 +17,8 @@ public class MaskUtils {
 
 	/**
 	 * print mask object
-	 * @param obj
-	 * @return
+	 * @param obj target object
+	 * @return String
 	 */
 	public static String toString(Object obj) {
 		if(null == obj) {
@@ -71,22 +71,22 @@ public class MaskUtils {
 	}
 
 	/**
-	 * 
-	 * @param object 
-	 * @param maskType 
-	 * @param format 
-	 * @return 
+	 * <p>Mask and return string
+	 * @param object mask object
+	 * @param maskType mask type
+	 * @param format which format
+	 * @return String
 	 */
 	private static String maskType2String(Object object, MaskType maskType, String format) {
 		
 		String value = object.toString();
 		
-		//idcard 2222281982****1111
+		// idcard 2222281982****1111
 		if(maskType == MaskType.IDCARD) {
 			if(value.length() >= 16) {
 				value = maskFixLen(value, 4, 4, format);
 			}
-		//bankcard number  1111664830****2222
+		// bankcard number  1111664830****2222
 		} else if(maskType == MaskType.BANKCARD) {
 			if(value.length() > 10) {
 				value = maskFixLen(value, 4, 4, format);
@@ -106,11 +106,12 @@ public class MaskUtils {
 	}
 	
 	/**
-	 * 
+	 * <p>Mask with fix length</p>
 	 * @param value mask string
-	 * @param noMaskSuffix 
-	 * @param maskLength
-	 * @return
+	 * @param noMaskSuffix index no of mask suffix
+	 * @param maskLength mask length
+	 * @param format mask format
+	 * @return String
 	 */
 	public static String maskFixLen(String value, int noMaskSuffix, int maskLength, String format) {
 		StringBuffer sb = new StringBuffer();

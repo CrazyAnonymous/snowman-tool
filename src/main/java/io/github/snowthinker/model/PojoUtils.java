@@ -2,7 +2,7 @@
  * @(#)PojoUtils.java 1.0 2013-2-25上午10:06:16
  *
  */
-package org.snowman.tool.model;
+package io.github.snowthinker.model;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -37,8 +37,8 @@ public class PojoUtils {
 
 	/**
 	 * 将POJO转换为DTO
-	* @param obj
-	* @param class_
+	* @param obj convert object
+	* @param class_ target class type
 	* @return Object
 	*/ 
 	public static Object convertPojo2Dto(Object obj, Class class_) {
@@ -57,7 +57,8 @@ public class PojoUtils {
 
 	/**
 	 * <p>将DTO转换为POJO</p>
-	 * @param obj
+	 * @param obj target object
+	 * @param class_ target class
 	 * @return Object
 	 */
 	public static Object convertDto2Pojo(Object obj, Class class_) {
@@ -67,8 +68,8 @@ public class PojoUtils {
 
 	/**
 	 * 将POJO List转换为DTO List
-	* @param pojoList
-	* @param class_
+	* @param pojoList converted pojo list
+	* @param class_ target class
 	* @return List
 	 */
 	public static List convertPojoList2DtoList(List<?> pojoList, Class class_) {
@@ -81,9 +82,9 @@ public class PojoUtils {
 	}
 
 	/**
-	 * 将POJO转换为HashMap
-	 * @param obj
-	 * @return Map<String,Object>
+	 * <p> convert pojo to HashMap
+	 * @param obj target object
+	 * @return Map
 	 */
 	public static Map<String, Object> convertPojo2Map(Object obj){
 		Map<String, Object> parameter = new HashMap<String, Object>();
@@ -140,9 +141,9 @@ public class PojoUtils {
 	 * <p>比较两个对象是否相同， 并返回当前对象与比较对象差异的字段的PropertyDescriptor
 	 * 要调用该方法，您必需用重写PO或VO的hashcode() 方法
 	 * </p>
-	 * @param obj1
-	 * @param obj2
-	 * @return List<PropertyDescriptor>
+	 * @param original comparer1
+	 * @param present comparer2
+	 * @return List
 	 */
 	public static List<PropertyDescriptor> compare(Object original, Object present) {
 		if(null==original || null==present){
@@ -247,8 +248,9 @@ public class PojoUtils {
 
 	/**
 	 * <p>动态调用</p>
-	 * @param contactChange
-	 * @param propDescList
+	 * @param source source object
+	 * @param target target object
+	 * @param propDescList PropertyDescriptor list
 	 */
 	public static void invoke(Object source, Object target, List<PropertyDescriptor> propDescList) {
 		if(null==source || null==target || null==propDescList){
@@ -283,8 +285,8 @@ public class PojoUtils {
 
 	/**
 	 * <p>获取非NULL字段的PropertyDescriptor</p>
-	 * @param contactChange
-	 * @return List<PropertyDescriptor>
+	 * @param obj target object
+	 * @return List
 	 */
 	public static List<PropertyDescriptor> getNotNullPropertyDescriptor(Object obj) {
 		if(null==obj){

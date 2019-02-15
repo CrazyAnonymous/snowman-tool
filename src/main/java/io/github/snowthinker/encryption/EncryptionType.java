@@ -1,4 +1,4 @@
-package org.snowman.tool.encryption;
+package io.github.snowthinker.encryption;
 
 /**
  * 

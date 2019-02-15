@@ -2,8 +2,8 @@ package org.snowman.tool.encrypt.test;
 
 import java.util.Date;
 
-import org.snowman.tool.encryption.Encryption;
-import org.snowman.tool.encryption.EncryptionType;
+import io.github.snowthinker.encryption.Encryption;
+import io.github.snowthinker.encryption.EncryptionType;
 
 /**
  * 

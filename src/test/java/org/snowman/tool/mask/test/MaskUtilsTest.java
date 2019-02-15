@@ -5,7 +5,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.junit.Test;
-import org.snowman.tool.encryption.AESEncryptor;
 
 import junit.framework.TestCase;
 
@@ -21,8 +20,6 @@ public class MaskUtilsTest extends TestCase {
 		maskBean.setAddress("2915 Canyon Lake Dr, Rapid City, SD 57702");
 		maskBean.setBirthday(new Date());
 		maskBean.setAge(17);
-		
-		AESEncryptor.encryptObject(maskBean);
 		
 		System.out.printf("after mask and encrypt: %s\r\n", maskBean);
 	}

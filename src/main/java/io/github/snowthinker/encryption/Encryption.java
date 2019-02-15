@@ -1,4 +1,4 @@
-package org.snowman.tool.encryption;
+package io.github.snowthinker.encryption;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,7 +16,7 @@ public @interface Encryption {
 
 	/**
 	 * encryption type default SHA-512
-	 * @return
+	 * @return EncryptionType
 	 */
 	EncryptionType type() default EncryptionType.SHA512;
 }

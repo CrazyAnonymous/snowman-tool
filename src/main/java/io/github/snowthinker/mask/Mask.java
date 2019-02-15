@@ -1,4 +1,4 @@
-package org.snowman.tool.mask;
+package io.github.snowthinker.mask;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,13 +16,13 @@ public @interface Mask {
 
 	/**
 	 * mask type
-	 * @return
+	 * @return MaskType
 	 */
 	public MaskType type() default MaskType.MOBILE; 
 	
 	/**
 	 * mask format
-	 * @return
+	 * @return String
 	 */
 	public String format() default "*";
 }
