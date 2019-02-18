@@ -1,4 +1,4 @@
-package org.snowman.tool.encrypt.test;
+package io.github.snowthinker.test;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import io.github.snowthinker.encryption.EncryptionType;
  * @author Andrew-PC
  * @since 2017年4月29日 上午10:10:26
  */
-public class EncryptBean {
+public class CustomerDto {
 
 	private String name;
 	
@@ -88,7 +88,7 @@ public class EncryptBean {
 
 	@Override
 	public String toString() {
-		return "EncryptBean [name=" + name + ", mobile=" + mobile + ", idcard=" + idcard + ", cardNumber=" + cardNumber
+		return "CustomerDto [name=" + name + ", mobile=" + mobile + ", idcard=" + idcard + ", cardNumber=" + cardNumber
 				+ ", address=" + address + ", birthday=" + birthday + ", age=" + age + "]";
 	}
 }

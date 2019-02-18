@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,9 @@ import io.github.snowthinker.reflect.ReflectionHelper;
  * @since 2013-2-25 上午10:06:16 
  * 
  */
-@SuppressWarnings(value={"unchecked", "rawtypes"})
 public class PojoHelper {
+	
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(PojoHelper.class);
 
 	/**
 	 * 将POJO转换为DTO
@@ -41,7 +43,7 @@ public class PojoHelper {
 	* @param class_ target class type
 	* @return Object
 	*/ 
-	public static Object convertPojo2Dto(Object obj, Class class_) {
+	public static Object convertPojo2Dto(Object obj, Class<? extends Object> class_) {
 		Object dto = null;
 		try {
 			dto = class_.newInstance();
@@ -51,7 +53,8 @@ public class PojoHelper {
 			e.printStackTrace();
 		}
 		
-		ReflectionHelper.copyProperties(obj, dto, class_);
+		copyProperties(obj, dto);
+		
 		return dto;
 	}
 	
@@ -62,7 +65,7 @@ public class PojoHelper {
 	 * @param class_ target class
 	 * @return Object
 	 */
-	public static Object convertDto2Pojo(Object obj, Class class_) {
+	public static Object convertDto2Pojo(Object obj, Class<? extends Object> class_) {
 		return convertPojo2Dto(obj, class_);
 	}
 	
@@ -73,8 +76,8 @@ public class PojoHelper {
 	* @param class_ target class
 	* @return List
 	 */
-	public static List convertPojoList2DtoList(List<?> pojoList, Class class_) {
-		List dtoList = new ArrayList();
+	public static List<? extends Object> convertPojoList2DtoList(List<?> pojoList, Class<? extends Object> class_) {
+		List<Object> dtoList = new ArrayList<>();
 		for (Object obj : pojoList) {
 			Object dto = convertPojo2Dto(obj, class_);
 			dtoList.add(dto);
@@ -246,86 +249,42 @@ public class PojoHelper {
         return true;
     }
 
-
 	/**
-	 * <p>动态调用</p>
-	 * @param source source object
-	 * @param target target object
-	 * @param propDescList PropertyDescriptor list
+	 * Copy property values from given object to target object
+	 * @param source the given object
+	 * @param target the target object
 	 */
-	public static void invoke(Object source, Object target, List<PropertyDescriptor> propDescList) {
-		if(null==source || null==target || null==propDescList){
-			throw new IllegalArgumentException("null parameter");
-		}
+	public static void copyProperties(Object source, Object target, /*Class<? extends Object> class_,*/ 
+			String... ignoreProperties) {
+		PropertyDescriptor[] sourcePdArr = ReflectionHelper.getPropertyDescriptors(source.getClass());
 		
-		for(PropertyDescriptor propDesc : propDescList){
-			String fieldName = propDesc.getName();
-			Object fieldValue = null;
-			try {
-				propDesc.getReadMethod().setAccessible(true);
-				fieldValue = propDesc.getReadMethod().invoke(source, new Object());
-				PropertyDescriptor targetPropDesc = getPropertyDescriptor(target.getClass(), fieldName);
-				/*if(null==targetPropDesc){
-					throw new BizException("目标对象不存在输入对象的方法");
-				}*/
-				if(null!=targetPropDesc){
-					targetPropDesc.getWriteMethod().invoke(target, fieldValue);
-				}
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-			
-		}
+		PropertyDescriptor[] targetPdArr = ReflectionHelper.getPropertyDescriptors(target.getClass());
 		
-	}
-
-
-	private static PropertyDescriptor getPropertyDescriptor(Class<? extends Object> class1, String fieldName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	/**
-	 * <p>获取非NULL字段的PropertyDescriptor</p>
-	 * @param obj target object
-	 * @return List
-	 */
-	public static List<PropertyDescriptor> getNotNullPropertyDescriptor(Object obj) {
-		if(null==obj){
-			throw new IllegalArgumentException("参数不能为null");
-		}
+		List<String> ignoreList = (null != ignoreProperties ? Arrays.asList(ignoreProperties) : new ArrayList<String>());
 		
-		List<PropertyDescriptor> propDescList = new ArrayList<PropertyDescriptor>();
+		for(PropertyDescriptor sourcePd : sourcePdArr) {
 		
-		PropertyDescriptor[] propDescs = ReflectionHelper.getPropertyDescriptors(obj.getClass());
-		for(PropertyDescriptor propDesc : propDescs){
-			String name = propDesc.getName();
-			if(null!=name && name.equals("class")){
+			if(ignoreList.contains(sourcePd.getName())) {
 				continue;
 			}
-			Method readMethod = propDesc.getReadMethod();
-			//Method writeMethod = propDesc.getWriteMethod();
-			try {
-				readMethod.setAccessible(true);
-				Object filedValue = readMethod.invoke(obj, new Object());
-				if(null!=filedValue){
-					propDescList.add(propDesc);
+			
+			for(PropertyDescriptor targetPd : targetPdArr) {
+				if(targetPd.getName().equals(sourcePd.getName())) {
+					Object invokedValue;
+					try {
+						Method readMethod = sourcePd.getReadMethod();
+						readMethod.setAccessible(true);
+						invokedValue = readMethod.invoke(source, new Object[] {});
+						
+						Method writeMethod = targetPd.getWriteMethod();
+						writeMethod.setAccessible(true);
+						writeMethod.invoke(target, invokedValue);
+					} catch (Exception e) {
+						logger.error("Invoking error", e);
+					} 
+					
 				}
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
 			}
 		}
-		
-		return propDescList;
 	}
-
 }

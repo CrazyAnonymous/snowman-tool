@@ -1,4 +1,4 @@
-package org.snowman.tool.mask.test;
+package io.github.snowthinker.mask.test;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import io.github.snowthinker.mask.Mask;
 import io.github.snowthinker.mask.MaskType;
 import io.github.snowthinker.mask.MaskUtils;
 
-class MaskBean {
+public class MaskBean {
 	
 	private String name;
 	

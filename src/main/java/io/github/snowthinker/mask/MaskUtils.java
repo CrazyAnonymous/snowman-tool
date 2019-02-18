@@ -41,7 +41,7 @@ public class MaskUtils {
 			Object readValue = null;
 			try {
 				propertyDescriptor.getReadMethod().setAccessible(true);
-				readValue = propertyDescriptor.getReadMethod().invoke(obj, null);
+				readValue = propertyDescriptor.getReadMethod().invoke(obj, new Object[] {});
 			} catch (Exception e) {
 				logger.error("invoke get method error", e);
 			} 
@@ -107,10 +107,10 @@ public class MaskUtils {
 	
 	/**
 	 * <p>Mask with fix length</p>
-	 * @param value mask string
-	 * @param noMaskSuffix index no of mask suffix
-	 * @param maskLength mask length
-	 * @param format mask format
+	 * @param value the mask value
+	 * @param noMaskSuffix the index of mask suffix
+	 * @param maskLength the mask length
+	 * @param format the mask format
 	 * @return String
 	 */
 	public static String maskFixLen(String value, int noMaskSuffix, int maskLength, String format) {
