@@ -254,7 +254,7 @@ public class PojoHelper {
 	 * @param source the given object
 	 * @param target the target object
 	 */
-	public static void copyProperties(Object source, Object target, /*Class<? extends Object> class_,*/ 
+	public static void copyProperties(Object source, Object target, 
 			String... ignoreProperties) {
 		PropertyDescriptor[] sourcePdArr = ReflectionHelper.getPropertyDescriptors(source.getClass());
 		

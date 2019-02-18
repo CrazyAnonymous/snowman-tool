@@ -21,7 +21,6 @@ public class ReflectionHelper {
 	 * <p>Load Bean propertyDescriptors</p>
 	 * @param class_ target class
 	 * @return PropertyDescriptor[]
-	 * @throws IntrospectionException
 	 */
 	public static PropertyDescriptor[] getPropertyDescriptors(Class<? extends Object> class_) {
 		Field[] fields = class_.getDeclaredFields();

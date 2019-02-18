@@ -1,27 +1,21 @@
-# snowman-tool
+# pojo-helper
 
-encrypt function:
+1. Mask or encrypt bean with annotation
+2. Rich reflection tools
 
-1. encrypt data prevent decompilation support AES HASH(MD5, SHA).
-2. use binary key file
-3. mask model and dto with annotation
-4. easy to use
-
----------------------
-
-usage:
-##### 1. add maven dependency
+Usage:
+##### 1. Add maven dependency
 	
 ```xml
 <dependency>
-	<groupId>org.snowman.tools</groupId>
-	<artifactId>snowman-tools</artifactId>
-	<version>0.1.0</version>
+	<groupId>io.github.snowthinker</groupId>
+	<artifactId>pojo-helper</artifactId>
+	<version>0.0.1-RELEASE</version>
 </dependency>
 ```
 
 
-##### 2. write mask or encryption model
+##### 2. Write mask or encryption bean and rewrite toString() method
 
 ```java  
 class MaskBean {
@@ -49,7 +43,7 @@ class MaskBean {
 }
 ```
 
-##### 3. run test case
+##### 3. Run the test case
 
 ```java
 public class MaskUtilsTest extends TestCase {
@@ -71,7 +65,7 @@ public class MaskUtilsTest extends TestCase {
 }
 ```
 
-##### 4.output: 
+##### 4.Output: 
 ```
 after mask and encrypt: MaskBean[name=Andrew, mobile=123####8123, idcard=1232121963****2123, cardNumber=jzvCqL2QEMQliI2Pvdx7Chi7uEURzsK8I7iejfobS7Q=, address=2915 Canyon Lake Dr, Rapid City, ****7702, birthday=Sat Apr 29 11:36:35 CST 2017, age=17
 ```
