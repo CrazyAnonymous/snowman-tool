@@ -1,7 +1,12 @@
-# pojo-helper
+# pojo-helper(https://github.com/snowThinker/pojo-helper)
 
-1. Mask or encrypt bean with annotation
-2. Rich reflection tools
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.snowthinker/mybatis-helper.svg?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.snowthinker/mybatis-helper)
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+## 主要功能
+
+* **Java Bean掩码支持**： Mask or encrypt bean with annotation
+* **Java Bean灵活转换类**： Rich reflection tools
 
 Usage:
 ##### 1. Add maven dependency
