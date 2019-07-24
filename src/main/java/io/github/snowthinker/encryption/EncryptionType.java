@@ -2,7 +2,7 @@ package io.github.snowthinker.encryption;
 
 /**
  * 
- * @author Andrew-PC
+ * @author Andrew
  * @since 2017年4月29日 上午9:54:19
  */
 public enum EncryptionType {
