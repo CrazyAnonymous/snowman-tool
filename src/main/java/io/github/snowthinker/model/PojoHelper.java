@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,19 +39,19 @@ public class PojoHelper {
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(PojoHelper.class);
 
 	/**
-	 * 将POJO转换为DTO
-	* @param obj convert object
-	* @param class_ target class type
-	* @return Object
-	*/ 
-	public static Object convertPojo2Dto(Object obj, Class<? extends Object> class_) {
-		Object dto = null;
+	 * <p>将POJO转换为DTO
+	 * @param obj
+	 * @param class_
+	 * @return
+	 */
+	public static <T extends Object>T convertPojo2Dto(Object obj, Class<T> class_) {
+		T dto = null;
 		try {
 			dto = class_.newInstance();
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			logger.info("convertPojo2Dto error", e.getMessage());
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			logger.info("convertPojo2Dto error", e.getMessage());
 		}
 		
 		copyProperties(obj, dto);
@@ -65,7 +66,7 @@ public class PojoHelper {
 	 * @param class_ target class
 	 * @return Object
 	 */
-	public static Object convertDto2Pojo(Object obj, Class<? extends Object> class_) {
+	public static <T extends Object> T convertDto2Pojo(Object obj, Class<T> class_) {
 		return convertPojo2Dto(obj, class_);
 	}
 	
@@ -76,10 +77,10 @@ public class PojoHelper {
 	* @param class_ target class
 	* @return List
 	 */
-	public static List<? extends Object> convertPojoList2DtoList(List<?> pojoList, Class<? extends Object> class_) {
-		List<Object> dtoList = new ArrayList<>();
+	public static <T extends Object> List<T> convertPojoList2DtoList(List<?> pojoList, Class<T> class_) {
+		List<T> dtoList = new ArrayList<>();
 		for (Object obj : pojoList) {
-			Object dto = convertPojo2Dto(obj, class_);
+			T dto = convertPojo2Dto(obj, class_);
 			dtoList.add(dto);
 		}
 		return dtoList;
@@ -108,7 +109,7 @@ public class PojoHelper {
 				getMethod = obj.getClass().getMethod(getMethodName, new Class[] {});
 				o = getMethod.invoke(obj, new Object[] {});
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.info("convertPojo2Map error", e.getMessage());
 			}
 			if (o != null) {
 				parameter.put(fieldName, o);
@@ -131,7 +132,7 @@ public class PojoHelper {
 				getMethod = obj.getClass().getSuperclass().getMethod(getMethodName, new Class[] {});
 				o = getMethod.invoke(obj, new Object[] {});
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.info("convertPojo2Map error", e.getMessage());
 			}
 			if (o != null) {
 				parameter.put(fieldName, o);
@@ -178,11 +179,11 @@ public class PojoHelper {
 						oriValue = oriPropDescriptor.getReadMethod().invoke(original, new Object());
 						preValue = prePropsDescriptor.getReadMethod().invoke(present, new Object());
 					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+						logger.info("compare error", e.getMessage());
 					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
+						logger.info("compare error", e.getMessage());
 					} catch (InvocationTargetException e) {
-						e.printStackTrace();
+						logger.info("compare error", e.getMessage());
 					}
 					
 					if(null==oriValue && null==preValue){
@@ -286,5 +287,47 @@ public class PojoHelper {
 				}
 			}
 		}
+	}
+	
+	public static <T extends Object> T convertMap2Pojo(Map<String, Object> map, Class<T> clazz) {
+		if(null == map || null == clazz) {
+			return null;
+		}
+		
+		T instance = null;
+		
+		try {
+			instance = clazz.newInstance();
+		} catch (InstantiationException e) {
+			logger.error("convertMap2Pojo error",  e.getMessage());
+		} catch (IllegalAccessException e) {
+			logger.error("convertMap2Pojo error",  e.getMessage());
+		}
+		
+		PropertyDescriptor[] propDescArr = ReflectionHelper.getPropertyDescriptors(clazz);
+		
+		for(Iterator<String> iter = map.keySet().iterator(); iter.hasNext();) {
+			String property = iter.next();
+			Object value = map.get(property);
+			
+			if(null != value) {
+					
+				for(PropertyDescriptor propDesc : propDescArr ) {
+					if(propDesc.getName().equalsIgnoreCase(property) && propDesc.getPropertyType() instanceof Object) {
+						try {
+							propDesc.getWriteMethod().invoke(instance, value);
+						} catch (IllegalAccessException e) {
+							logger.error("convertMap2Pojo error", e.getMessage());
+						} catch (IllegalArgumentException e) {
+							logger.error("convertMap2Pojo error", e.getMessage());
+						} catch (InvocationTargetException e) {
+							logger.error("convertMap2Pojo error", e.getMessage());
+						}
+					}
+				}
+			}
+		}
+		
+		return instance;
 	}
 }
