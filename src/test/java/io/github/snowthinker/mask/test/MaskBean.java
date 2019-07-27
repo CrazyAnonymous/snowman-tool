@@ -6,7 +6,6 @@ import io.github.snowthinker.encryption.Encryption;
 import io.github.snowthinker.encryption.EncryptionType;
 import io.github.snowthinker.mask.Mask;
 import io.github.snowthinker.mask.MaskType;
-import io.github.snowthinker.mask.MaskUtils;
 
 public class MaskBean {
 	
@@ -27,11 +26,6 @@ public class MaskBean {
 	private Date birthday;
 	
 	private Integer age;
-	
-	@Override
-	public String toString() {
-		return MaskUtils.toString(this);
-	}
 	
 	public String getName() {
 		return name;
@@ -74,6 +68,12 @@ public class MaskBean {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	
+	@Override
+	public String toString() {
+		return "MaskBean [name=" + name + ", mobile=" + mobile + ", idcard=" + idcard + ", cardNumber=" + cardNumber
+				+ ", address=" + address + ", birthday=" + birthday + ", age=" + age + "]";
 	}
 }
 

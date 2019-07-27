@@ -116,7 +116,7 @@ public class ReflectionHelper {
 			Method readMethod = propDesc.getReadMethod();
 			try {
 				readMethod.setAccessible(true);
-				Object filedValue = readMethod.invoke(obj, new Object());
+				Object filedValue = readMethod.invoke(obj, new Object[] {});
 				if(null!=filedValue){
 					propDescList.add(propDesc);
 				}
