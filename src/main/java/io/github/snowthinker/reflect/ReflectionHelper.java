@@ -1,6 +1,7 @@
 package io.github.snowthinker.reflect;
 
 import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,23 +20,32 @@ public class ReflectionHelper {
 
 	/**
 	 * <p>Load Bean propertyDescriptors</p>
-	 * @param class_ target class
-	 * @return PropertyDescriptor[]
+	 * @param class_ The target class
+	 * @return PropertyDescriptor[] The result
 	 */
-	public static PropertyDescriptor[] getPropertyDescriptors(Class<? extends Object> class_) {
-		Field[] fields = class_.getDeclaredFields();
-		PropertyDescriptor[] pds = new PropertyDescriptor[fields.length];
+	public static PropertyDescriptor[] getPropertyDescriptors(Class<? extends Object> class_)  {
+//		Field[] fields = class_.getDeclaredFields();
+//		PropertyDescriptor[] pds = new PropertyDescriptor[fields.length];
+//		
+//		for(int i =0 ; i<fields.length; i++) {
+//			PropertyDescriptor pd = null;
+//			try {
+//				pd = new PropertyDescriptor(fields[i].getName(), class_);
+//			} catch (IntrospectionException e) {
+//				logger.error("Construct PropertyDescriptor error: {}", fields[i], e);
+//			}
+//			pds[i] = pd;
+//		}
+//		
+//		return pds;
 		
-		for(int i =0 ; i<fields.length; i++) {
-			PropertyDescriptor pd = null;
-			try {
-				pd = new PropertyDescriptor(fields[i].getName(), class_);
-			} catch (IntrospectionException e) {
-				logger.error("Construct PropertyDescriptor error: {}", fields[i], e);
-			}
-			pds[i] = pd;
+		try {
+			return Introspector.getBeanInfo(class_).getPropertyDescriptors();
+		} catch (IntrospectionException e) {
+			logger.error("getPropertyDescriptors error", e);
 		}
-		return pds;
+		
+		return null;
 	}
 
 	/**
@@ -107,6 +117,11 @@ public class ReflectionHelper {
 		List<PropertyDescriptor> propDescList = new ArrayList<PropertyDescriptor>();
 		
 		PropertyDescriptor[] propDescs = ReflectionHelper.getPropertyDescriptors(obj.getClass());
+		
+		if(null == propDescs) {
+			return null;
+		}
+		
 		for(PropertyDescriptor propDesc : propDescs){
 			String name = propDesc.getName();
 			if(null!=name && name.equals("class")){
