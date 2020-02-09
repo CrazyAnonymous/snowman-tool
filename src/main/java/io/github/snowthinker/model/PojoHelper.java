@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.github.snowthinker.reflect.ReflectionHelper;
 
@@ -36,14 +38,17 @@ import io.github.snowthinker.reflect.ReflectionHelper;
 public class PojoHelper {
 	
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(PojoHelper.class);
+	
+	private static final Pattern humpPattern = Pattern.compile("[A-Z]");
 
 	/**
-	 * <p>Convert POJO to DTO
+	 * Convert POJO to DTO
+	 * @param <T> parameter and result type
 	 * @param pojo The given POJO
 	 * @param class_ The given class
-	 * @return
+	 * @return target class
 	 */
-	public static <T extends Object>T convertPojo2Dto(Object pojo, Class<T> class_) {
+	public static <T extends Object> T convertPojo2Dto(Object pojo, Class<T> class_) {
 		T dto = null;
 		try {
 			dto = class_.newInstance();
@@ -58,23 +63,23 @@ public class PojoHelper {
 		return dto;
 	}
 	
-
 	/**
-	 * <p>Convert DTO to POJO
+	 * Convert DTO to POJO
+	 * @param <T> parameter and result type
 	 * @param obj target object
 	 * @param class_ target class
-	 * @return Object
+	 * @return object result
 	 */
 	public static <T extends Object> T convertDto2Pojo(Object obj, Class<T> class_) {
 		return convertPojo2Dto(obj, class_);
 	}
 	
-
 	/**
-	 * <p>Convert POJO list to DTO list
-	 * @param pojoList The given POJO list
-	 * @param class_   The converted class
-	 * @return List The result list
+	 * Convert POJO list to DTO list
+	 * @param <T> The parameter and result
+	 * @param pojoList The result
+	 * @param class_ The class
+	 * @return Object The result
 	 */
 	public static <T extends Object> List<T> convertPojoList2DtoList(List<?> pojoList, Class<T> class_) {
 		List<T> dtoList = new ArrayList<>();
@@ -232,6 +237,7 @@ public class PojoHelper {
 	 * <p>Copy property values from given object to target object
 	 * @param source The given object
 	 * @param target The target object
+	 * @param ignoreProperties The properties to ignore
 	 */
 	public static void copyProperties(Object source, Object target, 
 			String... ignoreProperties) {
@@ -271,7 +277,15 @@ public class PojoHelper {
 	 * <p>Convert Map to Pojo
 	 * @param map The given map parameter
 	 * @param clazz The pojo class
-	 * @return pojo object
+	 * @return Object The result
+	 */
+	
+	/**
+	 * Convert Map to Pojo
+	 * @param <T> The parameter and result type
+	 * @param map The parameter
+	 * @param clazz The given class
+	 * @return Object The result
 	 */
 	public static <T extends Object> T convertMap2Pojo(Map<String, Object> map, Class<T> clazz) {
 		if(null == map || null == clazz) {
@@ -288,7 +302,11 @@ public class PojoHelper {
 			logger.error("convertMap2Pojo error",  e.getMessage());
 		}
 		
-		PropertyDescriptor[] propDescArr = ReflectionHelper.getPropertyDescriptors(clazz);
+		PropertyDescriptor[]propDescArr = ReflectionHelper.getPropertyDescriptors(clazz);
+		
+		if(null == propDescArr) {
+			return null;
+		}
 		
 		for(Iterator<String> iter = map.keySet().iterator(); iter.hasNext();) {
 			String property = iter.next();
@@ -314,4 +332,14 @@ public class PojoHelper {
 		
 		return instance;
 	}
+	
+	public static String hump2Line(String str) {
+        Matcher matcher = humpPattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
 }

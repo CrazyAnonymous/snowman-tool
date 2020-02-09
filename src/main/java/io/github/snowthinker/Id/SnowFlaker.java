@@ -80,8 +80,8 @@ public class SnowFlaker {
 
     /**
      * Get Physical Mac address
-     * @return byte[] Mac address bytes
-     * @throws SocketException
+     * @return Byte[] Mac address bytes
+     * @throws java.net.SocketException exception
      */
 	public byte[] getValidMacAddress() throws SocketException {
 		byte[] macAddress = null;
