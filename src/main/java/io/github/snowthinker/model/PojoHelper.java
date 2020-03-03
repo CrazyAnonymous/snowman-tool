@@ -58,7 +58,7 @@ public class PojoHelper {
 			logger.info("convertPojo2Dto error", e.getMessage());
 		}
 		
-		copyProperties(pojo, dto);
+		copyProperties(pojo, dto, "class");
 		
 		return dto;
 	}
