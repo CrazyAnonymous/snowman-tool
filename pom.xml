@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.github.snowythinker</groupId>
+	<groupId>io.github.snowthinker</groupId>
 	<artifactId>pojo-helper</artifactId>
 	<version>0.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>pojo-helper</name>
-	<url>https://github.com/snowThinker/pojo-helper</url>
+	<url>https://github.com/snowyThinker/pojo-helper</url>
 	<description>Java POJO helps to simplify pojo convert and mask</description>
 
 	<properties>
