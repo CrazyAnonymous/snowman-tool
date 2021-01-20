@@ -2,7 +2,7 @@
  * @(#)PojoUtils.java 1.0 2013-2-25上午10:06:16
  *
  */
-package io.github.snowthinker.model;
+package io.github.snowythinker.model;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.github.snowthinker.reflect.ReflectionHelper;
+import io.github.snowythinker.reflect.ReflectionHelper;
 
 /**
  * <dl>

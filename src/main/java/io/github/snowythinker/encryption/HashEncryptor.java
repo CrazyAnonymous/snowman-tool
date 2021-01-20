@@ -1,4 +1,4 @@
-package io.github.snowthinker.encryption;
+package io.github.snowythinker.encryption;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

@@ -1,7 +1,13 @@
 package io.github.snowthinker.mask.test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.github.snowthinker.encryption.Encryption;
 import io.github.snowthinker.encryption.EncryptionType;
 import io.github.snowthinker.mask.Mask;
@@ -26,6 +32,11 @@ public class MaskBean {
 	private Date birthday;
 	
 	private Integer age;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime createTime;
 	
 	public String getName() {
 		return name;
@@ -69,11 +80,25 @@ public class MaskBean {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
+	}
+
 	@Override
 	public String toString() {
-		return "MaskBean [name=" + name + ", mobile=" + mobile + ", idcard=" + idcard + ", cardNumber=" + cardNumber
-				+ ", address=" + address + ", birthday=" + birthday + ", age=" + age + "]";
+		return "MaskBean{" +
+				"name='" + name + '\'' +
+				", mobile='" + mobile + '\'' +
+				", idcard='" + idcard + '\'' +
+				", cardNumber='" + cardNumber + '\'' +
+				", address='" + address + '\'' +
+				", birthday=" + birthday +
+				", age=" + age +
+				", createTime=" + createTime +
+				'}';
 	}
 }
 

@@ -1,10 +1,10 @@
-package io.github.snowthinker.id.test;
+package io.github.snowythinker.id.test;
 
 import java.net.SocketException;
 
 import org.junit.Test;
 
-import io.github.snowthinker.Id.SnowFlaker;
+import io.github.snowythinker.id.SnowFlaker;
 import junit.framework.TestCase;
 
 public class SnowFlakeTest extends TestCase {

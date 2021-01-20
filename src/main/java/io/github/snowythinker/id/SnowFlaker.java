@@ -1,4 +1,4 @@
-package io.github.snowthinker.Id;
+package io.github.snowythinker.Id;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;

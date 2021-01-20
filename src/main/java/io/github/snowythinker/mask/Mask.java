@@ -1,4 +1,4 @@
-package io.github.snowthinker.mask;
+package io.github.snowythinker.mask;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

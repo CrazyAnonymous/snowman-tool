@@ -1,4 +1,4 @@
-package io.github.snowthinker.reflect;
+package io.github.snowythinker.reflect;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -24,21 +24,6 @@ public class ReflectionHelper {
 	 * @return PropertyDescriptor[] The result
 	 */
 	public static PropertyDescriptor[] getPropertyDescriptors(Class<? extends Object> class_)  {
-//		Field[] fields = class_.getDeclaredFields();
-//		PropertyDescriptor[] pds = new PropertyDescriptor[fields.length];
-//		
-//		for(int i =0 ; i<fields.length; i++) {
-//			PropertyDescriptor pd = null;
-//			try {
-//				pd = new PropertyDescriptor(fields[i].getName(), class_);
-//			} catch (IntrospectionException e) {
-//				logger.error("Construct PropertyDescriptor error: {}", fields[i], e);
-//			}
-//			pds[i] = pd;
-//		}
-//		
-//		return pds;
-		
 		try {
 			return Introspector.getBeanInfo(class_).getPropertyDescriptors();
 		} catch (IntrospectionException e) {

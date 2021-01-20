@@ -1,10 +1,10 @@
-package io.github.snowthinker.mask;
+package io.github.snowythinker.mask;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import io.github.snowthinker.reflect.ReflectionHelper;
+import io.github.snowythinker.reflect.ReflectionHelper;
 
 /**
  * mask utils

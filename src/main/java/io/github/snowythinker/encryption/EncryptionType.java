@@ -1,4 +1,4 @@
-package io.github.snowthinker.encryption;
+package io.github.snowythinker.encryption;
 
 /**
  * 

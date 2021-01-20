@@ -1,4 +1,4 @@
-package io.github.snowthinker.encryption;
+package io.github.snowythinker.encryption;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

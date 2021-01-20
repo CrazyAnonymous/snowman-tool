@@ -1,5 +1,6 @@
 package io.github.snowthinker.model.test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public class PojoHelperTest extends TestCase {
 		maskBean4.setAddress("2915 Canyon Lake Dr, Rapid City, SD 57702");
 		maskBean4.setBirthday(new Date());
 		maskBean4.setAge(44);
+		maskBean4.setCreateTime(LocalDateTime.now());
 		
 		Map<String, Object> map = PojoHelper.convertPojo2Map(maskBean4);
 		System.out.println(map);
