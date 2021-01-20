@@ -1,14 +1,13 @@
 package io.github.snowythinker.mask.test;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class MaskUtilsTest extends TestCase {
+public class MaskUtilsTest  {
 	
 	@Test
 	public void testMaskBean() {

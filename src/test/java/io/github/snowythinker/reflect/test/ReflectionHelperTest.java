@@ -2,13 +2,12 @@ package io.github.snowythinker.reflect.test;
 
 import java.beans.PropertyDescriptor;
 
-import org.junit.Test;
 
 import io.github.snowythinker.reflect.ReflectionHelper;
 import io.github.snowythinker.test.CustomerDto;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class ReflectionHelperTest extends TestCase {
+public class ReflectionHelperTest {
 
 	@Test
 	public void testGetpropertyDescriptor() {

@@ -2,12 +2,11 @@ package io.github.snowythinker.id.test;
 
 import java.net.SocketException;
 
-import org.junit.Test;
 
 import io.github.snowythinker.id.SnowFlaker;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class SnowFlakeTest extends TestCase {
+public class SnowFlakeTest {
 	
 	@Test
 	public void testBit() throws SocketException {
