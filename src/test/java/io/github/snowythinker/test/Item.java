@@ -1,4 +1,4 @@
-package io.github.snowthinker.test;
+package io.github.snowythinker.test;
 
 import java.util.Date;
 

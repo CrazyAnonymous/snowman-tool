@@ -1,4 +1,4 @@
-package io.github.snowthinker.mask.test;
+package io.github.snowythinker.mask.test;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;

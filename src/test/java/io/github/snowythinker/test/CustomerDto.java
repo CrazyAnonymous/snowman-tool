@@ -1,9 +1,9 @@
-package io.github.snowthinker.test;
+package io.github.snowythinker.test;
 
 import java.util.Date;
 
-import io.github.snowthinker.encryption.Encryption;
-import io.github.snowthinker.encryption.EncryptionType;
+import io.github.snowythinker.encryption.Encryption;
+import io.github.snowythinker.encryption.EncryptionType;
 
 /**
  * 

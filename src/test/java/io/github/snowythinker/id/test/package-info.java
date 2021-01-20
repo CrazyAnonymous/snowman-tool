@@ -1,8 +1,5 @@
 /**
- * 
- */
-/**
  * @author Nicholas
  *
  */
-package io.github.snowthinker.id.test;
+package io.github.snowythinker.id.test;

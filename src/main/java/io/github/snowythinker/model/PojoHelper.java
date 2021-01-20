@@ -262,6 +262,10 @@ public class PojoHelper {
 						invokedValue = readMethod.invoke(source, new Object[] {});
 						
 						Method writeMethod = targetPd.getWriteMethod();
+						if(null == writeMethod) {
+							continue;
+						}
+
 						writeMethod.setAccessible(true);
 						writeMethod.invoke(target, invokedValue);
 					} catch (Exception e) {

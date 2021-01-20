@@ -1,4 +1,4 @@
-package io.github.snowthinker.model.test;
+package io.github.snowythinker.model.test;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -7,8 +7,8 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import io.github.snowthinker.mask.test.MaskBean;
-import io.github.snowthinker.model.PojoHelper;
+import io.github.snowythinker.mask.test.MaskBean;
+import io.github.snowythinker.model.PojoHelper;
 import junit.framework.TestCase;
 
 public class PojoHelperTest extends TestCase {
