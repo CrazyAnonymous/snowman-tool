@@ -10,7 +10,7 @@
 
 	<name>pojo-helper</name>
 	<url>https://github.com/snowyThinker/pojo-helper</url>
-	<description>Java POJO helps to simplify pojo convert and mask</description>
+	<description>Java POJO helper to simplify POJO convert and mask</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -147,7 +147,7 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/snowThinker/pojo-helper</url>
+		<url>https://github.com/snowyThinker/pojo-helper</url>
 	</scm>
 
 	<developers>
